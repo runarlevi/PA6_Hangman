@@ -32,7 +32,7 @@ class Hangman:
                     if self.wordCorrect(theWord, userInput.strip()):
                         unclearWord = theWord
                         self.printResults(theWord, unclearWord, GUESSES)
-                        self.storeSores(theWord, wrongGuesses)
+                        self.storeSores(theWord, wrongGuesses, GUESSES)
                         break
 
                 if userInput.strip() in theWord:
@@ -46,7 +46,7 @@ class Hangman:
 
                 if self.gameOver(theWord, unclearWord, GUESSES):
                     self.printResults(theWord, unclearWord, GUESSES)
-                    self.storeSores(theWord, wrongGuesses)
+                    self.storeSores(theWord, wrongGuesses, GUESSES)
                     break
 
                 print("You have " + str(GUESSES) + " guesses left.\n")
@@ -101,7 +101,10 @@ class Hangman:
             return True
         return False
 
-    def storeSores(self, theWord, wrongGuesses):
+    def storeSores(self, theWord, wrongGuesses, GUESSES):
         with open('scores.csv', 'a', newline='') as csvfile:
             writer = csv.writer(csvfile)
-            writer.writerow([self.name, "".join(theWord), wrongGuesses])
+            if wrongGuesses == GUESSES:
+                writer.writerow([self.name, "".join(theWord), wrongGuesses, "Loss"])
+            else:
+                writer.writerow([self.name, "".join(theWord), wrongGuesses, "Win"])
