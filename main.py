@@ -1,5 +1,5 @@
 # PA6 - Hangman - Egill & Rúnar
-from PA6 import mainClass
+from PA6_Hangman import mainClass
 import csv
 
 def playHangman(players):
